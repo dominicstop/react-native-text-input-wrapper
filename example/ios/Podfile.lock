@@ -1,5 +1,8 @@
 PODS:
   - boost (1.83.0)
+  - ComputableLayout (0.7.0):
+    - DGSwiftUtilities (~> 0.11)
+  - DGSwiftUtilities (0.17.2)
   - DoubleConversion (1.1.6)
   - EXConstants (15.4.5):
     - ExpoModulesCore
@@ -1070,8 +1073,14 @@ PODS:
     - React-jsi (= 0.73.4)
     - React-logger (= 0.73.4)
     - React-perflogger (= 0.73.4)
-  - RNITextInputWrapper (0.1.0):
+  - ReactNativeIosUtilities (4.3.2):
+    - ComputableLayout (~> 0.7)
+    - DGSwiftUtilities (~> 0.12)
     - ExpoModulesCore
+  - RNITextInputWrapper (0.1.0):
+    - DGSwiftUtilities
+    - ExpoModulesCore
+    - ReactNativeIosUtilities
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
 
@@ -1132,11 +1141,14 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - ReactNativeIosUtilities (from `../node_modules/react-native-ios-utilities`)
   - RNITextInputWrapper (from `../../ios`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - ComputableLayout
+    - DGSwiftUtilities
     - fmt
     - libevent
     - SocketRocket
@@ -1249,6 +1261,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  ReactNativeIosUtilities:
+    :path: "../node_modules/react-native-ios-utilities"
   RNITextInputWrapper:
     :path: "../../ios"
   Yoga:
@@ -1256,6 +1270,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
+  ComputableLayout: c50faffac4ed9f8f05b0ce5e6f3a60df1f6042c8
+  DGSwiftUtilities: f371248003eb7feea3cfe594f00599e01186198c
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
   EXConstants: 988aa430ca0f76b43cd46b66e7fae3287f9cc2fc
   EXFont: f20669cb266ef48b004f1eb1f2b20db96cd1df9f
@@ -1310,7 +1326,8 @@ SPEC CHECKSUMS:
   React-runtimescheduler: ed48e5faac6751e66ee1261c4bd01643b436f112
   React-utils: 6e5ad394416482ae21831050928ae27348f83487
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
-  RNITextInputWrapper: a9e438531f857269b8b413585ac0241b7091b493
+  ReactNativeIosUtilities: 89ba6339063669b7006a5b98adc0681bbc198ef3
+  RNITextInputWrapper: 97aef1467c46226b484cb9abad8d8dc6e187babf
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 1b901a6d6eeba4e8a2e8f308f708691cdb5db312
 
