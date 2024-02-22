@@ -1,9 +1,10 @@
+import * as React from "react";
 import { ViewProps } from "react-native";
 
 // TBA: TextInputWrapperViewInheritedProps
 
 export type TextInputWrapperViewBaseProps = {
-  // TBA
+  renderTextInput: () => React.JSX.Element;
 };
 
 // prettier-ignore
