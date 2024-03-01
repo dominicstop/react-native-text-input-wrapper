@@ -40,13 +40,15 @@ public class RNITextInputWrapperView: ExpoView {
     switch baseTextInputView.backedTextInputView {
       case let textField as RCTUITextField:
         self.wrappedTextInput = .init(textField: textField);
-        textField.pasteConfiguration = pasteConfiguration;
+        
         self._swizzleIfNeeded();
+        self._applyPasteConfig();
 
       case let textView as RCTUITextView:
         self.wrappedTextInput = .init(textView: textView);
-        textView.pasteConfiguration = pasteConfiguration;
+        
         self._swizzleIfNeeded();
+        self._applyPasteConfig();
         
       default:
         break;
@@ -106,6 +108,40 @@ public class RNITextInputWrapperView: ExpoView {
   
   // MARK: - Internal Functions
   // --------------------------
+  
+  func _applyPasteConfig(){
+    guard let wrappedTextInput = self.wrappedTextInput else { return };
+    
+    let pasteConfiguration = {
+      if #available(iOS 14.0, *) {
+        return UIPasteConfiguration(acceptableTypeIdentifiers: [
+          UTType.text.identifier,
+          UTType.image.identifier,
+          UTType.gif.identifier,
+        ]);
+      };
+      
+      /// List:
+      /// https://gist.github.com/rmorey/b8d1b848086bdce026a9f57732a3b858
+      ///
+      return UIPasteConfiguration(acceptableTypeIdentifiers: [
+        "public.text",
+        "public.image",
+        "com.compuserve.gif",
+      ]);
+    }();
+    
+    switch wrappedTextInput {
+      case let .textField(textField):
+        guard let textField = textField.ref else { return };
+        textField.pasteConfiguration = pasteConfiguration;
+        
+      case let .textView(textView):
+        guard let textView = textView.ref else { return };
+        textView.pasteConfiguration = pasteConfiguration;
+    };
+  };
+  
   func _swizzleIfNeeded(){
     guard !self._didSwizzle,
           let wrappedTextInput = self.wrappedTextInput
