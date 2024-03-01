@@ -1,9 +1,9 @@
 import { ViewProps } from "react-native";
-// import { RNITextInputWrapperNativeViewBaseProps } from './RNITextInputWrapperNativeViewTypes';
+import { RNITextInputWrapperNativeViewProps } from './RNITextInputWrapperNativeViewTypes';
 
-// export type RNITextInputWrapperViewInheritedProps = Pick<RNITextInputWrapperNativeViewBaseProps,
-//  | 'TBA'
-// >;
+export type RNITextInputWrapperViewInheritedProps = Pick<RNITextInputWrapperNativeViewProps,
+  | 'onPaste'
+>;
 
 export type RNITextInputWrapperViewBaseProps = {
   // TBA
@@ -11,6 +11,6 @@ export type RNITextInputWrapperViewBaseProps = {
 
 // prettier-ignore
 export type RNITextInputWrapperViewProps =
-  // & RNITextInputWrapperViewInheritedProps
+  & RNITextInputWrapperViewInheritedProps
   & RNITextInputWrapperViewBaseProps
   & ViewProps;

@@ -29,7 +29,10 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
   // ------------------
 
   private getProps = () => {
-    const { renderTextInput, ...viewProps } = this.props;
+    const { 
+      renderTextInput, 
+      ...viewProps 
+    } = this.props;
 
     return {
       // A. Group native props for `RNITextInputWrapperView`...
@@ -68,6 +71,7 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
           this.nativeRef = r!;
         }}
         style={[styles.nativeView, props.viewProps.style]}
+        onPaste={this.props.onPaste}
       >
         {ClonedTextInput}
       </RNITextInputWrapperView>

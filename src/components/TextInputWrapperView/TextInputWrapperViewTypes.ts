@@ -1,7 +1,10 @@
 import * as React from "react";
 import { ViewProps } from "react-native";
+import { RNITextInputWrapperViewProps } from "../../native_components";
 
-// TBA: TextInputWrapperViewInheritedProps
+export type TextInputWrapperViewInheritedProps = Partial<Pick<RNITextInputWrapperViewProps,
+  | 'onPaste'
+>>;
 
 export type TextInputWrapperViewBaseProps = {
   renderTextInput: () => React.JSX.Element;
@@ -9,6 +12,6 @@ export type TextInputWrapperViewBaseProps = {
 
 // prettier-ignore
 export type TextInputWrapperViewProps =
-  // & TextInputWrapperViewInheritedProps
+  & TextInputWrapperViewInheritedProps
   & TextInputWrapperViewBaseProps
   & ViewProps;

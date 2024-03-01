@@ -7,7 +7,7 @@ public class RNITextInputWrapperViewModule: Module {
     Name("RNITextInputWrapperView");
 
     View(RNITextInputWrapperView.self) {
-      // no-op
+      Events("onPaste");
     };
   };
 };

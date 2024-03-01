@@ -11,6 +11,8 @@ public class RNITextInputWrapperView: ExpoView {
 
   weak var baseTextInputView: RCTBaseTextInputView?;
   
+  let onPasteEvent = EventDispatcher("onPaste");
+  
   public override func insertReactSubview(_ subview: UIView!, at atIndex: Int) {
     super.insertReactSubview(subview, at: atIndex);
     
@@ -74,13 +76,37 @@ public class RNITextInputWrapperView: ExpoView {
     );
     
     if let image = UIPasteboard.general.image {
+      let tempPath = FileManager.default.temporaryDirectory;
+      
+      let fileName = UUID().uuidString;
+      
+      let filePath = tempPath
+        .appendingPathComponent(fileName)
+        .appendingPathExtension("png");
+        
+      guard let imageData = image.pngData() else { return };
+      try? imageData.write(to: tempPath);
+      
+      self.onPasteEvent.callAsFunction([
+        "type": "image",
+        "fileName": fileName,
+        "fileExtension": filePath.pathExtension,
+        "filePath": filePath.absoluteString,
+      ]);
+    
       print(
         "RNITextInputWrapperView.paste",
         "\n - UIPasteboard.general.image:", image,
+        "\n - filePath.absoluteString:", filePath.absoluteString,
         "\n"
       );
     
     } else if let string = UIPasteboard.general.string {
+      self.onPasteEvent.callAsFunction([
+        "type": "text",
+        "value": string,
+      ]);
+      
       print(
         "RNITextInputWrapperView.paste",
         "\n - UIPasteboard.general.string:", string,

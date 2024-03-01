@@ -1,8 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { ViewProps } from "react-native";
+import { RNITextInputWrapperOnPasteEvent } from "./RNITextInputWrapperNativeViewEvents";
 
 export type RNITextInputWrapperNativeViewBaseProps = {
-  // TBA
+  onPaste: RNITextInputWrapperOnPasteEvent | undefined;
 };
 
 export type RNITextInputWrapperNativeViewProps =

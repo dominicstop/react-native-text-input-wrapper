@@ -6,6 +6,11 @@ export default function App() {
     <View style={styles.rootContainer}>
       <TextInputWrapperView
         style={styles.textInputWrapper}
+        onPaste={({nativeEvent}) => {
+          console.log(
+            "onPaste event - nativeEvent", nativeEvent,
+          );
+        }}
         renderTextInput={() => (
           <TextInput
             style={styles.textInput}
