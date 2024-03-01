@@ -153,6 +153,17 @@ public class RNITextInputWrapperView: ExpoView {
       case let .textField(textField):
         guard let textField = textField.ref else { return };
         
+        SwizzlingHelpers.swizzlePaste(forTextField: textField) { originalImp, selector in
+          /// This the new imp that will replace the `paste` method in
+          /// `textView`
+          return { _self, sender in
+            
+            // Call the original implementation.
+            originalImp(_self, selector, sender);
+            self.paste(sender);
+          };
+        };
+        
         
       case let .textView(textView):
         guard let textView = textView.ref else { return };
