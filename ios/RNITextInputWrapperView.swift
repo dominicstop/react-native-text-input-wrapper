@@ -9,9 +9,21 @@ fileprivate enum NativeIDKey: String {
 
 public class RNITextInputWrapperView: ExpoView {
 
+  // MARK: - Properties
+  // -------------------
+
   weak var baseTextInputView: RCTBaseTextInputView?;
+  var wrappedTextInput: RNIWrappedTextInput?;
+  
+  var _didSwizzle = false;
+  
+  // MARK: - Event Props
+  // -------------------
   
   let onPasteEvent = EventDispatcher("onPaste");
+  
+  // MARK: - Lifecycle
+  // -----------------
   
   public override func insertReactSubview(_ subview: UIView!, at atIndex: Int) {
     super.insertReactSubview(subview, at: atIndex);
@@ -25,48 +37,25 @@ public class RNITextInputWrapperView: ExpoView {
     
     self.baseTextInputView = baseTextInputView;
     
-    let pasteConfiguration = {
-      if #available(iOS 14.0, *) {
-        return UIPasteConfiguration(acceptableTypeIdentifiers: [
-          UTType.text.identifier,
-          UTType.image.identifier,
-          UTType.gif.identifier,
-        ]);
-      };
-      
-      /// List:
-      /// https://gist.github.com/rmorey/b8d1b848086bdce026a9f57732a3b858
-      ///
-      return UIPasteConfiguration(acceptableTypeIdentifiers: [
-        "public.text",
-        "public.image",
-        "com.compuserve.gif",
-      ]);
-    }();
-    
     switch baseTextInputView.backedTextInputView {
       case let textField as RCTUITextField:
+        self.wrappedTextInput = .init(textField: textField);
         textField.pasteConfiguration = pasteConfiguration;
+        self._swizzleIfNeeded();
 
       case let textView as RCTUITextView:
+        self.wrappedTextInput = .init(textView: textView);
         textView.pasteConfiguration = pasteConfiguration;
-        
-        SwizzlingHelpers.swizzlePaste(forTextView: textView) { originalImp, selector in
-          /// This the new imp that will replace the `paste` method in
-          /// `textView`
-          return { _self, sender in
-            
-            // Call the original implementation.
-            originalImp(_self, selector, sender);
-            self.paste(sender);
-          };
-        };
+        self._swizzleIfNeeded();
         
       default:
         break;
     };
     
   };
+  
+  // MARK: - Handler Functions
+  // -------------------------
   
   public override func paste(_ sender: Any?) {
     print(
@@ -112,6 +101,36 @@ public class RNITextInputWrapperView: ExpoView {
         "\n - UIPasteboard.general.string:", string,
         "\n"
       );
+    };
+  };
+  
+  // MARK: - Internal Functions
+  // --------------------------
+  func _swizzleIfNeeded(){
+    guard !self._didSwizzle,
+          let wrappedTextInput = self.wrappedTextInput
+    else { return };
+    
+    self._didSwizzle = true;
+  
+    switch wrappedTextInput {
+      case let .textField(textField):
+        guard let textField = textField.ref else { return };
+        
+        
+      case let .textView(textView):
+        guard let textView = textView.ref else { return };
+        
+        SwizzlingHelpers.swizzlePaste(forTextView: textView) { originalImp, selector in
+          /// This the new imp that will replace the `paste` method in
+          /// `textView`
+          return { _self, sender in
+            
+            // Call the original implementation.
+            originalImp(_self, selector, sender);
+            self.paste(sender);
+          };
+        };
     };
   };
 };
