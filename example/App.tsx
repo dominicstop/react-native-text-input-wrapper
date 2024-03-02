@@ -6,6 +6,10 @@ export default function App() {
     <View style={styles.rootContainer}>
       <TextInputWrapperView
         style={styles.textInputWrapper}
+        pasteConfiguration={[
+          'public.text',
+          'public.image',
+        ]}
         onPaste={({nativeEvent}) => {
           console.log(
             "onPaste event - nativeEvent", nativeEvent,
