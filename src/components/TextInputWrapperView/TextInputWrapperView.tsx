@@ -19,11 +19,7 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
 
   constructor(props: TextInputWrapperViewProps){
     super(props);
-  }
-
-  componentWillUnmount(): void {
-    this.nativeRef.notifyOnComponentWillUnmount();
-  }
+  };
 
   // Internal Functions
   // ------------------
