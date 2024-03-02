@@ -11,13 +11,12 @@ export default function App() {
             "onPaste event - nativeEvent", nativeEvent,
           );
         }}
-        renderTextInput={() => (
-          <TextInput
-            style={styles.textInput}
-            placeholder="Write something..."
-          />
-        )}
-      />
+      >
+        <TextInput
+          style={styles.textInput}
+          placeholder="Write something..."
+        />
+      </TextInputWrapperView>
     </View>
   );
 }

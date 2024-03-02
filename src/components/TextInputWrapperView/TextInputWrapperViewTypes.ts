@@ -8,7 +8,7 @@ export type TextInputWrapperViewInheritedProps = Partial<Pick<RNITextInputWrappe
 >>;
 
 export type TextInputWrapperViewBaseProps = {
-  renderTextInput: () => React.JSX.Element;
+  // TBA
 };
 
 // prettier-ignore

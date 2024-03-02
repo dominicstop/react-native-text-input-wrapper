@@ -26,7 +26,6 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
 
   private getProps = () => {
     const { 
-      renderTextInput, 
       pasteConfiguration,
       ...viewProps 
     } = this.props;
@@ -37,10 +36,7 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
         pasteConfiguration,
       },
 
-      // B. pass down regular props
-      renderTextInput,
-
-      // C. Move all the default view-related
+      // B. Move all the default view-related
       //    props here...
       viewProps,
     };
@@ -52,14 +48,21 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
   render() {
     const props = this.getProps();
 
-    const ClonedTextInput = React.cloneElement<TextInputProps>(
-      props.renderTextInput(),
-      {
-        nativeID: NATIVE_ID_KEYS.textInput,
-        multiline: true,
-      },
-    );
+    const hasChildren = React.Children.count(this.props.children);
+    if(hasChildren <= 0) return null;
 
+    const childrenWithProps = React.Children.map(this.props.children, child => {
+      if(!React.isValidElement(child)) {
+        return child;
+      };
+
+      const newProps: TextInputProps = {
+        nativeID: NATIVE_ID_KEYS.textInput,
+      }; 
+      
+      return React.cloneElement(child, newProps);
+    });
+    
     return (
       <RNITextInputWrapperView
         {...props.viewProps}
@@ -70,7 +73,7 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
         style={[styles.nativeView, props.viewProps.style]}
         onPaste={this.props.onPaste}
       >
-        {ClonedTextInput}
+        {childrenWithProps}
       </RNITextInputWrapperView>
     );
   }
