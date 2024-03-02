@@ -3,6 +3,7 @@ import { ViewProps } from "react-native";
 import { RNITextInputWrapperViewProps } from "../../native_components";
 
 export type TextInputWrapperViewInheritedProps = Partial<Pick<RNITextInputWrapperViewProps,
+  | 'pasteConfiguration'
   | 'onPaste'
 >>;
 

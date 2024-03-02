@@ -17,6 +17,11 @@ public class RNITextInputWrapperView: ExpoView {
   
   var _didSwizzle = false;
   
+  // MARK: - Value Props
+  // -------------------
+  
+  var pasteConfigurationProp: [String]?;
+  
   // MARK: - Event Props
   // -------------------
   
@@ -112,24 +117,12 @@ public class RNITextInputWrapperView: ExpoView {
   func _applyPasteConfig(){
     guard let wrappedTextInput = self.wrappedTextInput else { return };
     
-    let pasteConfiguration = {
-      if #available(iOS 14.0, *) {
-        return UIPasteConfiguration(acceptableTypeIdentifiers: [
-          UTType.text.identifier,
-          UTType.image.identifier,
-          UTType.gif.identifier,
-        ]);
-      };
-      
-      /// List:
-      /// https://gist.github.com/rmorey/b8d1b848086bdce026a9f57732a3b858
-      ///
-      return UIPasteConfiguration(acceptableTypeIdentifiers: [
-        "public.text",
-        "public.image",
-        "com.compuserve.gif",
-      ]);
-    }();
+    let pasteConfigurationProp =
+      self.pasteConfigurationProp ?? ["public.text"];
+    
+    let pasteConfiguration = UIPasteConfiguration(
+      acceptableTypeIdentifiers: pasteConfigurationProp
+    );
     
     switch wrappedTextInput {
       case let .textField(textField):

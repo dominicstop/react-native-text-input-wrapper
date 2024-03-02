@@ -7,6 +7,10 @@ public class RNITextInputWrapperViewModule: Module {
     Name("RNITextInputWrapperView");
 
     View(RNITextInputWrapperView.self) {
+      Prop("pasteConfiguration") {
+        $0.pasteConfigurationProp = $1;
+      };
+      
       Events("onPaste");
     };
   };

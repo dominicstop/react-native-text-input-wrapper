@@ -31,13 +31,14 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
   private getProps = () => {
     const { 
       renderTextInput, 
+      pasteConfiguration,
       ...viewProps 
     } = this.props;
 
     return {
       // A. Group native props for `RNITextInputWrapperView`...
       nativeProps: {
-        // TBA
+        pasteConfiguration,
       },
 
       // B. pass down regular props
