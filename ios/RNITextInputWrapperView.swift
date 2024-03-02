@@ -65,50 +65,52 @@ public class RNITextInputWrapperView: ExpoView {
   // -------------------------
   
   public override func paste(_ sender: Any?) {
-    print(
-      "RNITextInputWrapperView.paste",
-      "sender:", (sender as? NSObject)?.className ?? type(of: sender),
-      "\n"
-    );
+    guard let typeString = UIPasteboard.general.types.first else { return };
+    let typeStringComponents = typeString.components(separatedBy: ".");
     
-    if let image = UIPasteboard.general.image {
-      let tempPath = FileManager.default.temporaryDirectory;
-      
-      let fileName = UUID().uuidString;
-      
-      let filePath = tempPath
-        .appendingPathComponent(fileName)
-        .appendingPathExtension("png");
-        
-      guard let imageData = image.pngData() else { return };
-      try? imageData.write(to: tempPath);
-      
-      self.onPasteEvent.callAsFunction([
-        "type": "image",
-        "fileName": fileName,
-        "fileExtension": filePath.pathExtension,
-        "filePath": filePath.absoluteString,
-      ]);
+    guard let typeExtensionString = typeStringComponents.last else { return };
+    let senderType = (sender as? NSObject)?.className ?? "\(type(of: sender))";
     
-      print(
-        "RNITextInputWrapperView.paste",
-        "\n - UIPasteboard.general.image:", image,
-        "\n - filePath.absoluteString:", filePath.absoluteString,
-        "\n"
-      );
+    var eventPayload: Dictionary<String, Any> = [
+      "senderType": senderType,
+      "type": typeString,
+      "typeExtensionString": typeExtensionString,
     
-    } else if let string = UIPasteboard.general.string {
-      self.onPasteEvent.callAsFunction([
-        "type": "text",
-        "value": string,
-      ]);
+      "hasColors"      : UIPasteboard.general.hasColors,
+      "hasImages"      : UIPasteboard.general.hasImages,
+      "hasStrings"     : UIPasteboard.general.hasStrings,
+      "hasURLs"        : UIPasteboard.general.hasURLs,
+      "changeCount"    : UIPasteboard.general.changeCount,
+      "isPersistent"   : UIPasteboard.general.isPersistent,
+      "name"           : UIPasteboard.general.name,
+      "numberOfItems"  : UIPasteboard.general.numberOfItems,
+    ];
+    
+    if let string = UIPasteboard.general.string {
+      eventPayload["inferredType"] = "text";
+      eventPayload["value"] = string;
       
-      print(
-        "RNITextInputWrapperView.paste",
-        "\n - UIPasteboard.general.string:", string,
-        "\n"
-      );
+      self.onPasteEvent.callAsFunction(eventPayload);
+      return;
     };
+    
+    guard let data = UIPasteboard.general.data(forPasteboardType: typeString)
+    else { return };
+    
+    let tempPath = FileManager.default.temporaryDirectory;
+    let fileName = UUID().uuidString;
+    
+    let filePath = tempPath
+      .appendingPathComponent(fileName)
+      .appendingPathExtension(typeExtensionString);
+      
+    eventPayload["inferredType"] = "data";
+    eventPayload["fileName"] = fileName;
+    eventPayload["fileExtension"] = filePath.pathExtension;
+    eventPayload["filePath"] = filePath.absoluteString;
+      
+    try? data.write(to: filePath);
+    self.onPasteEvent.callAsFunction(eventPayload);
   };
   
   // MARK: - Internal Functions
