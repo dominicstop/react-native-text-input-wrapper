@@ -139,40 +139,26 @@ public class RNITextInputWrapperView: ExpoView {
   
   func _swizzleIfNeeded(){
     guard !self._didSwizzle,
-          let wrappedTextInput = self.wrappedTextInput
+          let wrappedTextInput = self.wrappedTextInput,
+          let textInput = wrappedTextInput.textInput
     else { return };
     
     self._didSwizzle = true;
-  
-    switch wrappedTextInput {
-      case let .textField(textField):
-        guard let textField = textField.ref else { return };
+    
+    if let responder = textInput as? UIResponderStandardEditActions {
+      SwizzlingHelpers.swizzlePaste(
+        forStandardEditActionsResponder: responder
+      ){ originalImp, selector in
+      
+        return { [weak self] _self, sender in
         
-        SwizzlingHelpers.swizzlePaste(forTextField: textField) { originalImp, selector in
-          /// This the new imp that will replace the `paste` method in
-          /// `textView`
-          return { _self, sender in
-            
-            // Call the original implementation.
-            originalImp(_self, selector, sender);
-            self.paste(sender);
-          };
+          // Call the original implementation.
+          originalImp(_self, selector, sender);
+          
+          guard let self = self else { return };
+          self.paste(sender);
         };
-        
-        
-      case let .textView(textView):
-        guard let textView = textView.ref else { return };
-        
-        SwizzlingHelpers.swizzlePaste(forTextView: textView) { originalImp, selector in
-          /// This the new imp that will replace the `paste` method in
-          /// `textView`
-          return { _self, sender in
-            
-            // Call the original implementation.
-            originalImp(_self, selector, sender);
-            self.paste(sender);
-          };
-        };
+      };
     };
   };
 };

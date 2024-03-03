@@ -22,44 +22,17 @@ public extension SwizzlingHelpers {
     impBlockType: U.Type =
       (@convention(block) (Any, Any) -> Void).self,
       
-    forTextView textView: UITextView,
+    forStandardEditActionsResponder responder: UIResponderStandardEditActions,
     hitTestBlockMaker: @escaping (
       _ originalImp: T,
       _ selector: Selector
     ) -> U
   ) -> IMP? {
-    let selector = #selector(UITextView.paste(_:));
+    let selector = #selector(UIResponderStandardEditActions.paste(_:));
     
     return Self.swizzleWithBlock(
       impMethodType: impMethodType,
-      forObject: textView,
-      withSelector: selector,
-      newImpMaker: hitTestBlockMaker
-    );
-  };
-  
-  @discardableResult
-  static func swizzlePaste<T, U>(
-    /// From: `UIResponderStandardEditActions.paste(_:)`, or:
-    /// `optional func paste(_ sender: Any?) -> Void`
-    ///
-    impMethodType: T.Type =
-      (@convention(c) (Any, Selector, Any) -> Void).self,
-      
-    impBlockType: U.Type =
-      (@convention(block) (Any, Any) -> Void).self,
-      
-    forTextField textField: UITextField,
-    hitTestBlockMaker: @escaping (
-      _ originalImp: T,
-      _ selector: Selector
-    ) -> U
-  ) -> IMP? {
-    let selector = #selector(UITextField.paste(_:));
-    
-    return Self.swizzleWithBlock(
-      impMethodType: impMethodType,
-      forObject: textField,
+      forObject: responder,
       withSelector: selector,
       newImpMaker: hitTestBlockMaker
     );
