@@ -2,34 +2,70 @@
 
 TBA
 
-# API documentation
+## A. Introduction
 
-- [Documentation for the main branch](https://github.com/expo/expo/blob/main/docs/pages/versions/unversioned/sdk/react-native-text-input-wrapper.md)
-- [Documentation for the latest stable release](https://docs.expo.dev/versions/latest/sdk/react-native-text-input-wrapper/)
+TBA
 
-# Installation in managed Expo projects
+<br><br>
 
-For [managed](https://docs.expo.dev/archive/managed-vs-bare/) Expo projects, please follow the installation instructions in the [API documentation for the latest stable release](#api-documentation). If you follow the link and there is no documentation available then this library is not yet usable within managed projects &mdash; it is likely to be included in an upcoming Expo SDK release.
-
-# Installation in bare React Native projects
+## B. Installation
 
 For bare React Native projects, you must ensure that you have [installed and configured the `expo` package](https://docs.expo.dev/bare/installing-expo-modules/) before continuing.
 
-### Add the package to your npm dependencies
-
 ```
-npm install react-native-text-input-wrapper
+// 1.A Install via npm...
+npm install @dominicstop/react-native-text-input-wrapper
+
+// 1.B or install via yarn
+npm install @dominicstop/react-native-text-input-wrapper
+
+// 2.A Install pods via npx...
+npx pod-install
+
+// 2.B or via cocoapods
+cd example && pod install
 ```
 
-### Configure for iOS
+<br><br>
 
-Run `npx pod-install` after installing the npm package.
+## C. Basic Usage
 
+TBA
 
-### Configure for Android
+<br><br>
 
+## D.  Documentaation
 
+TBA
 
-# Contributing
+<br><br>
 
-Contributions are very welcome! Please refer to guidelines described in the [contributing guide]( https://github.com/expo/expo#contributing).
+## E.  Articles and Discussions
+
+TBA
+
+<br><br>
+
+## F.  Usage and Examples
+
+TBA
+
+<br><br>
+
+## E.  Showcase, Test and Demos
+
+TBA
+
+<br><br>
+
+## F.  Licence
+
+TBA
+
+<br><br>
+
+## G.  Misc and Contact
+
+* 🐤 **Twitter/X**: `@GoDominic`
+* 💌 **Email**: `dominicgo@dominicgo.dev`
+* 🌐 **Website**: [dominicgo.dev](https://dominicgo.dev)
