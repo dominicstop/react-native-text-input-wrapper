@@ -21,6 +21,27 @@ export default function App() {
           placeholder="Write something..."
         />
       </TextInputWrapperView>
+      <TextInputWrapperView
+        style={styles.textInputWrapper}
+        pasteConfiguration={[
+          'public.text',
+          'public.image',
+        ]}
+        editMenuDefaultActions={[
+          'define',
+          'paste',
+        ]}
+        onPaste={({nativeEvent}) => {
+          console.log(
+            "onPaste event - nativeEvent", nativeEvent,
+          );
+        }}
+      >
+        <TextInput
+          style={styles.textInput}
+          placeholder="Write something..."
+        />
+      </TextInputWrapperView>
     </View>
   );
 }
