@@ -1,6 +1,6 @@
 {
-  "name": "react-native-text-input-wrapper",
-  "version": "0.1.0",
+  "name": "@dominicstop/react-native-text-input-wrapper",
+  "version": "0.0.0",
   "description": "TBA",
   "private": false,
   "main": "build/index.js",
