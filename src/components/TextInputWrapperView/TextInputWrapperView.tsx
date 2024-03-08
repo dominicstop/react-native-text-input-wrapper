@@ -27,6 +27,7 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
   private getProps = () => {
     const { 
       pasteConfiguration,
+      editMenuDefaultActions,
       ...viewProps 
     } = this.props;
 
@@ -34,6 +35,7 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
       // A. Group native props for `RNITextInputWrapperView`...
       nativeProps: {
         pasteConfiguration,
+        editMenuDefaultActions,
       },
 
       // B. Move all the default view-related

@@ -11,6 +11,10 @@ public class RNITextInputWrapperViewModule: Module {
         $0.pasteConfigurationProp = $1;
       };
       
+      Prop("editMenuDefaultActions") {
+        $0.editMenuDefaultActionsProp = $1;
+      };
+      
       Events("onPaste");
     };
   };

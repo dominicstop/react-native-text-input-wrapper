@@ -3,6 +3,7 @@ import { RNITextInputWrapperNativeViewProps } from './RNITextInputWrapperNativeV
 
 export type RNITextInputWrapperViewInheritedProps = Pick<RNITextInputWrapperNativeViewProps,
   | 'pasteConfiguration'
+  | 'editMenuDefaultActions'
   | 'onPaste'
 >;
 

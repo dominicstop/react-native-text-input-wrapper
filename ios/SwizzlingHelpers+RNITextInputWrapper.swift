@@ -37,4 +37,31 @@ public extension SwizzlingHelpers {
       newImpMaker: hitTestBlockMaker
     );
   };
+  
+  @discardableResult
+  static func swizzleCanPerformAction<T, U>(
+    /// From: `UIResponder.canPerformAction(_:withSender:)`, or:
+    /// `func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool`
+    ///
+    impMethodType: T.Type =
+      (@convention(c) (Any, Selector, Selector, Any?) -> Bool).self,
+      
+    impBlockType: U.Type =
+      (@convention(block) (Any, Selector, Any?) -> Bool).self,
+      
+    forResponder responder: UIResponder,
+    hitTestBlockMaker: @escaping (
+      _ originalImp: T,
+      _ selector: Selector
+    ) -> U
+  ) -> IMP? {
+    let selector = #selector(UIResponder.canPerformAction(_:withSender:));
+    
+    return Self.swizzleWithBlock(
+      impMethodType: impMethodType,
+      forObject: responder,
+      withSelector: selector,
+      newImpMaker: hitTestBlockMaker
+    );
+  };
 };

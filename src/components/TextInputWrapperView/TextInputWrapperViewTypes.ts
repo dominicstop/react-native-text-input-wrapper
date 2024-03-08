@@ -4,6 +4,7 @@ import { RNITextInputWrapperViewProps } from "../../native_components";
 
 export type TextInputWrapperViewInheritedProps = Partial<Pick<RNITextInputWrapperViewProps,
   | 'pasteConfiguration'
+  | 'editMenuDefaultActions'
   | 'onPaste'
 >>;
 
