@@ -32,6 +32,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  textInputWrapper: {},
-  textInput: {},
+  textInputWrapper: {
+    marginBottom: 16,
+  },
+  textInput: {
+    fontSize: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    backgroundColor: 'rgba(0,0,0,0.05)',
+    overflow: 'hidden',
+    borderRadius: 10,
+  },
 });
