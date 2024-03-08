@@ -187,12 +187,18 @@ public class RNITextInputWrapperView: ExpoView {
       SwizzlingHelpers.swizzlePaste(
         forStandardEditActionsResponder: responder
       ){ originalImp, selector in
-      
+        
         return { [weak self] _self, sender in
-          // Call the original implementation.
-          originalImp(_self, selector, sender);
+          let invokeOriginalImp = {
+            originalImp(_self, selector, sender);
+          };
           
-          guard let self = self else { return };
+          invokeOriginalImp();
+          
+          guard (_self as AnyObject) === responder,
+                let self = self
+          else { return };
+          
           self._paste(sender);
         };
       };
@@ -209,7 +215,9 @@ public class RNITextInputWrapperView: ExpoView {
             originalImp( _self, _selector, action, selector);
           };
           
-          guard let self = self else {
+          guard (_self as AnyObject) === responder,
+                let self = self
+           else {
             return invokeOriginalImp();
           };
           
