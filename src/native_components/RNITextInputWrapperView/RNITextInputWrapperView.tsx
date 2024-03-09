@@ -49,26 +49,20 @@ export class RNITextInputWrapperView extends React.PureComponent<RNITextInputWra
   };
 
   render(){
-    if(IS_PLATFORM_IOS){
-      return React.createElement(RNITextInputWrapperNativeView!, {
-        ...this.props,
-        ...((this.reactTag == null) && {
-          onLayout: this._handleOnLayout,
-        }),
-        // @ts-ignore
-        ref: this._handleOnNativeRef,
-        style: [
-          this.props.style,
-          styles.nativeView
-        ],
-      });
-    };
+    if(!IS_PLATFORM_IOS) return undefined;
 
-    if(IS_PLATFORM_ANDROID){
-      return null;
-    };
-
-    return null;
+    return React.createElement(RNITextInputWrapperNativeView!, {
+      ...this.props,
+      ...((this.reactTag == null) && {
+        onLayout: this._handleOnLayout,
+      }),
+      // @ts-ignore
+      ref: this._handleOnNativeRef,
+      style: [
+        this.props.style,
+        styles.nativeView
+      ],
+    });
   };
 
   
