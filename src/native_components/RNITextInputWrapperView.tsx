@@ -5,6 +5,7 @@ import { StyleSheet, View, LayoutChangeEvent } from 'react-native';
 import { RNITextInputWrapperNativeView } from './RNITextInputWrapperNativeView';
 // import { RNITextInputWrapperViewModule } from './RNITextInputWrapperViewModule';
 import type { RNITextInputWrapperViewProps } from './RNITextInputWrapperViewTypes';
+import { IS_PLATFORM_ANDROID, IS_PLATFORM_IOS } from '../constants/LibEnv';
 
 
 export class RNITextInputWrapperView extends React.PureComponent<RNITextInputWrapperViewProps> {
@@ -48,19 +49,29 @@ export class RNITextInputWrapperView extends React.PureComponent<RNITextInputWra
   };
 
   render(){
-    return React.createElement(RNITextInputWrapperNativeView, {
-      ...this.props,
-      ...((this.reactTag == null) && {
-        onLayout: this._handleOnLayout,
-      }),
-      // @ts-ignore
-      ref: this._handleOnNativeRef,
-      style: [
-        this.props.style,
-        styles.nativeView
-      ],
-    });
+    if(IS_PLATFORM_IOS){
+      return React.createElement(RNITextInputWrapperNativeView!, {
+        ...this.props,
+        ...((this.reactTag == null) && {
+          onLayout: this._handleOnLayout,
+        }),
+        // @ts-ignore
+        ref: this._handleOnNativeRef,
+        style: [
+          this.props.style,
+          styles.nativeView
+        ],
+      });
+    };
+
+    if(IS_PLATFORM_ANDROID){
+      return null;
+    };
+
+    return null;
   };
+
+  
 };
 
 const styles = StyleSheet.create({
