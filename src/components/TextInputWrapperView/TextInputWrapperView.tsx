@@ -4,7 +4,7 @@ import React from "react";
 import { StyleSheet, TextInputProps } from "react-native";
 
 import type { TextInputWrapperViewProps } from "./TextInputWrapperViewTypes";
-import { RNITextInputWrapperView } from "../../native_components";
+import { RNITextInputWrapperView } from "../../native_components/RNITextInputWrapperView";
 
 const NATIVE_ID_KEYS = {
   textInput: "textInput",

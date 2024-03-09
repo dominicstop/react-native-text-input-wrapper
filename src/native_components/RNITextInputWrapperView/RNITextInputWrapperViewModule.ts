@@ -1,5 +1,5 @@
 import { requireNativeModule } from "expo-modules-core";
-import { IS_PLATFORM_IOS } from "../constants/LibEnv";
+import { IS_PLATFORM_IOS } from "../../constants/LibEnv";
 
 interface RNITextInputWrapperViewModuleType {
   // TBA

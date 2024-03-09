@@ -5,7 +5,7 @@ import { StyleSheet, View, LayoutChangeEvent } from 'react-native';
 import { RNITextInputWrapperNativeView } from './RNITextInputWrapperNativeView';
 // import { RNITextInputWrapperViewModule } from './RNITextInputWrapperViewModule';
 import type { RNITextInputWrapperViewProps } from './RNITextInputWrapperViewTypes';
-import { IS_PLATFORM_ANDROID, IS_PLATFORM_IOS } from '../constants/LibEnv';
+import { IS_PLATFORM_ANDROID, IS_PLATFORM_IOS } from '../../constants/LibEnv';
 
 
 export class RNITextInputWrapperView extends React.PureComponent<RNITextInputWrapperViewProps> {
