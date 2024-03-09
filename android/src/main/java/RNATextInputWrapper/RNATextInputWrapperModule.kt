@@ -3,7 +3,7 @@ package RNATextInputWrapper
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
-class RNITextInputWrapperModule : Module() {
+class RNATextInputWrapperModule : Module() {
   // Each module class must implement the definition function. The definition consists of components
   // that describes the module's functionality and behavior.
   // See https://docs.expo.dev/modules/module-api for more details about available components.
@@ -11,7 +11,7 @@ class RNITextInputWrapperModule : Module() {
     // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
     // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
     // The module will be accessible from `requireNativeModule('RNITextInputWrapper')` in JavaScript.
-    Name("RNITextInputWrapper")
+    Name("RNATextInputWrapper")
 
     // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
     Constants(
@@ -37,9 +37,9 @@ class RNITextInputWrapperModule : Module() {
 
     // Enables the module to be used as a native view. Definition components that are accepted as part of
     // the view definition: Prop, Events.
-    View(RNITextInputWrapperView::class) {
+    View(RNATextInputWrapperView::class) {
       // Defines a setter for the `name` prop.
-      Prop("name") { view: RNITextInputWrapperView, prop: String ->
+      Prop("name") { view: RNATextInputWrapperView, prop: String ->
         println(prop)
       }
     }

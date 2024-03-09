@@ -4,6 +4,6 @@
     "modules": ["RNITextInputWrapperViewModule"]
   },
   "android": {
-    "modules": ["RNATextInputWrapper.RNITextInputWrapperModule"]
+    "modules": ["RNATextInputWrapper.RNATextInputWrapperModule"]
   }
 }
