@@ -5,6 +5,8 @@ import { StyleSheet, TextInputProps } from "react-native";
 
 import type { TextInputWrapperViewProps } from "./TextInputWrapperViewTypes";
 import { RNITextInputWrapperView } from "../../native_components/RNITextInputWrapperView";
+import { IS_PLATFORM_ANDROID, IS_PLATFORM_IOS } from "../../constants/LibEnv";
+import { RNATextInputWrapperView } from "../../native_components/RNATextInputWrapperView";
 
 const NATIVE_ID_KEYS = {
   textInput: "textInput",
@@ -12,7 +14,8 @@ const NATIVE_ID_KEYS = {
 
 export class TextInputWrapperView extends React.PureComponent<TextInputWrapperViewProps> {
 
-  nativeRef!: RNITextInputWrapperView;
+  nativeRefIOS!: RNITextInputWrapperView;
+  nativeRefAndroid!: RNATextInputWrapperView;
 
   // Lifecycle
   // ---------
@@ -64,20 +67,37 @@ export class TextInputWrapperView extends React.PureComponent<TextInputWrapperVi
       
       return React.cloneElement(child, newProps);
     });
-    
-    return (
-      <RNITextInputWrapperView
+
+    if(IS_PLATFORM_IOS){
+      return (
+        <RNITextInputWrapperView
+          {...props.viewProps}
+          {...props.nativeProps}
+          ref={(r) => {
+            this.nativeRefIOS = r!;
+          }}
+          style={[styles.nativeView, props.viewProps.style]}
+          onPaste={this.props.onPaste}
+        >
+          {childrenWithProps}
+        </RNITextInputWrapperView>
+      );
+    };
+
+    if(IS_PLATFORM_ANDROID){
+      <RNATextInputWrapperView
         {...props.viewProps}
         {...props.nativeProps}
         ref={(r) => {
-          this.nativeRef = r!;
+          this.nativeRefAndroid = r!;
         }}
         style={[styles.nativeView, props.viewProps.style]}
-        onPaste={this.props.onPaste}
       >
         {childrenWithProps}
-      </RNITextInputWrapperView>
-    );
+      </RNATextInputWrapperView>
+    };
+    
+    return undefined;
   }
 }
 
