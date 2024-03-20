@@ -7,6 +7,6 @@ interface RNATextInputWrapperViewModuleType {
 
 export const RNATextInputWrapperViewModule: RNATextInputWrapperViewModuleType | undefined = (() => {
   if(!IS_PLATFORM_ANDROID) return undefined;
-  return requireNativeModule("RNATextInputWrapper");
+  return requireNativeModule("RNATextInputView");
 })();
   
