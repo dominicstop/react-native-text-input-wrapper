@@ -2,8 +2,5 @@
   "platforms": ["ios", "android", "web"],
   "ios": {
     "modules": ["RNITextInputWrapperViewModule"]
-  },
-  "android": {
-    "modules": ["RNATextInputView.RNATextInputViewModule"]
   }
 }
