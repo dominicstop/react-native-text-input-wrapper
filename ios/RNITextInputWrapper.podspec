@@ -18,6 +18,7 @@ Pod::Spec.new do |s|
   s.dependency 'ExpoModulesCore'
   s.dependency 'ReactNativeIosUtilities'
   s.dependency 'DGSwiftUtilities'
+  s.dependency 'DGSwiftUtilities', '~> 0.46'
 
   # Swift/Objective-C compatibility
   s.pod_target_xcconfig = {
