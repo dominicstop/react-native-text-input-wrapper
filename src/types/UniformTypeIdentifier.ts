@@ -1,4 +1,4 @@
-export type UniformTypeIdentifierBase =
+export type Uniform type identifier base  =
   | "ca.mcgill.mni.bic.mnc"
   | "com.adobe.actionscript"
   | "com.adobe.cold-fusion-markup"
